@@ -18,9 +18,9 @@ function readItems() {
         contents.innerHTML += 
         `
         <li class="bg-light list-unstyled" id="${index}">
-        <input type="checkbox" onclick="itemCompleted(${index})" class="chkItem form-check-input">
-        <span class="list-content">${item.item}</span>
-        <i class="bi bi-x-octagon-fill list-icon" onclick="removeItem(${index})" id="${index}"></i>
+        <input id="tickbox" type="checkbox" onclick="itemCompleted(${index})" class="chkItem float-start form-check-input">
+        <span class="list-items">${item.item}</span>
+        <i class="bi bi-x-octagon-fill list-icon float-end" onclick="removeItem(${index})" id="${index}"></i>
         </li>
         `;
     } );
@@ -28,7 +28,7 @@ function readItems() {
 
 function addItems() {
     try{
-        let list = document.getElementById('list-content').value;
+        let list = document.getElementById('list-items').value;
         let index = lists.length + 1;
         lists.push(
             {
@@ -49,9 +49,9 @@ btnAddItem.addEventListener('click', addItems);
 
 function itemCompleted(id) {
     if(document.querySelectorAll('.chkItem')[id].checked) {
-        document.querySelectorAll('.list-content')[id].classList.add('addLine');
+        document.querySelectorAll('.list-items')[id].classList.add('addLine');
     }else {
-        document.querySelectorAll('.list-content')[id].classList.remove('addLine');
+        document.querySelectorAll('.list-items')[id].classList.remove('addLine');
     }
 }
 

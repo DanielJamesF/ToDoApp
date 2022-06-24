@@ -4,15 +4,27 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: black;
+}
+
 .addLine {
     text-decoration: line-through;
 }
 
 form {
-    height: 250px;
+    height: 240px;
 }
 
 #top {
     border: solid 1px black;
     width: 100%;
+}
+
+#space {
+    height: 17vh;
+}
+
+#tickbox {
+    border: solid black 1px;
 }
