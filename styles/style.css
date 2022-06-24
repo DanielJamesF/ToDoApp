@@ -4,8 +4,8 @@
     box-sizing: border-box;
 }
 
-addLine {
-    list-style: line-through;
+.addLine {
+    text-decoration: line-through;
 }
 
 form {
@@ -15,8 +15,4 @@ form {
 #top {
     border: solid 1px black;
     width: 100%;
-}
-
-.bi {
-    
 }
