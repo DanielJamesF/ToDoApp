@@ -11,10 +11,24 @@ document.addEventListener("DOMContentLoaded", ()=> {
     readItems();
 });
 
+function readItems() {
+    let contents = document.querySelector('#item-wrapper');
+    contents.innerHTML = "";
+    lists.forEach( (item, index)=> {
+        contents.innerHTML += 
+        `
+        <li class="bg-light list-unstyled" id="${index}">
+        <input type="checkbox" onclick="itemCompleted(${index})" class="chkItem form-check-input">
+        <span class="list-content">${item.item}</span>
+        <i class="bi bi-x-octagon-fill list-icon" onclick="removeItem(${index})" id="${index}"></i>
+        </li>
+        `;
+    } );
+}
+
 function addItems() {
     try{
         let list = document.getElementById('list-content').value;
-        console.log(list)
         let index = lists.length + 1;
         lists.push(
             {
@@ -30,20 +44,6 @@ function addItems() {
     readItems();
 }
 
-function readItems() {
-    console.log(lists);
-    lists.forEach( (item, index)=> {
-        document.querySelector('#item-wrapper').innerHTML += 
-        `
-        <li class="bg-gradient list-unstyled" id="${index}">
-        <input type="checkbox" onclick="itemCompleted(${index})" class="chkItem form-check-input">
-        <span class="list-content">${item.item}</span>
-        <i class="bi bi-x-octagon-fill list-icon" onclick="removeItem(${index})" id="${index}"></i>
-        </li>
-        `;
-    } );
-}
-
 const btnAddItem = document.querySelector('#addItem');
 btnAddItem.addEventListener('click', addItems);
 
@@ -55,19 +55,18 @@ function itemCompleted(id) {
     }
 }
 
-document.querySelector('#sorting').addEventListener('click', ()=> {
+document.querySelector('#sort').addEventListener('click', ()=> {
     lists.sort( (a, b)=> {
         return (a.item < b.item) ? -1: 0; 
     });
     localStorage.setItem('items', JSON.stringify(lists));   
     readItems(); 
 });
-    
+
 function removeItem(id) {
     if(id > -1) {
         lists.splice(id, 1); 
         localStorage.setItem('items', JSON.stringify(lists));        
-    }else {
-        console.log('Name was not found')
     }
+    readItems();
 }

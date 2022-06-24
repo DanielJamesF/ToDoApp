@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+addLine {
+    list-style: line-through;
+}
+
+form {
+    background-color: rgb(135, 46, 46);
+}
