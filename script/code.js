@@ -44,7 +44,7 @@ function addItems() {
     readItems();
 }
 
-const btnAddItem = document.querySelector('#addItem');
+const btnAddItem = document.querySelector('#Add');
 btnAddItem.addEventListener('click', addItems);
 
 function itemCompleted(id) {
