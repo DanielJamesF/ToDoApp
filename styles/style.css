@@ -6,6 +6,7 @@
 
 body {
     background-color: black;
+    cursor: pointer;
 }
 
 .addLine {
@@ -21,8 +22,16 @@ form {
     width: 100%;
 }
 
-#space {
-    height: 17vh;
+.list-icon {
+    display: none;
+}
+
+.list-unstyled:hover .list-icon {
+    display: block;
+}
+
+ul #item-group .list-unstyled:hover .list-icon {
+    display: inline-block;
 }
 
 #tickbox {

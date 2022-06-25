@@ -1,5 +1,5 @@
-let lists = JSON.parse(localStorage.getItem('items')) ? 
-JSON.parse( localStorage.getItem('items')) : [
+let todo = JSON.parse(localStorage.getItem('todo'))
+? JSON.parse(localStorage.getItem('todo')) : [
     {
         id: 1,
         item: 'TV Stand',
@@ -7,66 +7,65 @@ JSON.parse( localStorage.getItem('items')) : [
     }
 ];
 
-document.addEventListener("DOMContentLoaded", ()=> {
-    readItems();
+document.addEventListener("DOMContentLoaded", () => {
+    showItems();
 });
 
-function readItems() {
-    let contents = document.querySelector('#item-wrapper');
-    contents.innerHTML = "";
-    lists.forEach( (item, index)=> {
-        contents.innerHTML += 
-        `
-        <li class="bg-light list-unstyled" id="${index}">
-        <input id="tickbox" type="checkbox" onclick="itemCompleted(${index})" class="chkItem float-start form-check-input">
-        <span class="list-items">${item.item}</span>
-        <i class="bi bi-x-octagon-fill list-icon float-end" onclick="removeItem(${index})" id="${index}"></i>
-        </li>
-        `;
-    } );
+function showItems() {
+    let items = document.querySelector('#item-group');
+    items.innerHTML = "";
+    todo.forEach( (item, index) =>
+    items.innerHTML +=
+    `
+    <li class="bg-light list-unstyled" id="${index}">
+    <input id="tickbox" type="checkbox" onclick="taskCompleted(${index})" class="chkItem float-start form-check-input">
+    <span class="items-input">${item.item}</span>
+    <i class="bi bi-x-square-fill list-icon float-end" onclick="deleteItem(${index})" id="${index}"></i>
+    </li>
+    `)
 }
 
 function addItems() {
     try{
-        let list = document.getElementById('list-items').value;
-        let index = lists.length + 1;
-        lists.push(
+        let items = document.getElementById('items-input').value;
+        let index = todo.length + 1;
+        todo.push(
             {
-                id: index !== undefined ? index : 1 , 
-                item: list,
+                id: index !== undefined ? index : 1,
+                item: items,
                 createdDate: new Date()
             }
         );
-        localStorage.setItem('items', JSON.stringify(lists));    
+        localStorage.setItem('todo', JSON.stringify(todo));
     }catch(e) {
         console.log(e.message);
     }
-    readItems();
+    showItems();
 }
 
-const btnAddItem = document.querySelector('#Add');
+const btnAddItem = document.querySelector('#add');
 btnAddItem.addEventListener('click', addItems);
 
-function itemCompleted(id) {
+function taskCompleted(id) {
     if(document.querySelectorAll('.chkItem')[id].checked) {
-        document.querySelectorAll('.list-items')[id].classList.add('addLine');
+        document.querySelectorAll('.items-input')[id].classList.add('addLine');
     }else {
-        document.querySelectorAll('.list-items')[id].classList.remove('addLine');
+        document.querySelectorAll('.items-input')[id].classList.remove('addLine');
     }
 }
 
-document.querySelector('#sort').addEventListener('click', ()=> {
-    lists.sort( (a, b)=> {
-        return (a.item < b.item) ? -1: 0; 
+document.querySelector('#sort').addEventListener('click', () => {
+    todo.sort( (a, b) => {
+        return (a.item < b.item) ? -1: 0;
     });
-    localStorage.setItem('items', JSON.stringify(lists));   
-    readItems(); 
-});
+    localStorage.setItem('todo', JSON.stringify(todo));
+    showItems();
+})
 
-function removeItem(id) {
+function deleteItem(id) {
     if(id > -1) {
-        lists.splice(id, 1); 
-        localStorage.setItem('items', JSON.stringify(lists));        
+        todo.splice(id, 1);
+        localStorage.setItem('todo', JSON.stringify(todo));
     }
-    readItems();
+    showItems();
 }
